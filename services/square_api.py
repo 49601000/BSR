@@ -66,7 +66,7 @@ def fetch_item_variation_map(headers, categories):
 
 
 # 💰 売上データ取得
-def fetch_sales(begin_time, end_time, item_map, variation_map):
+def fetch_sales(headers, begin_time, end_time, item_map, variation_map):
     payments_endpoint = "https://connect.squareup.com/v2/payments"
     params = {
         "begin_time": begin_time,
