@@ -6,10 +6,14 @@ from datetime import date
 
 def show_results(ranking: pd.DataFrame, category_list: list):
     st.subheader("📂 カテゴリを選択してください")
-    selected_category = st.selectbox("カテゴリ", category_list)
+    selected_category = st.selectbox("カテゴリ", ["すべて"] + category_list)
     st.write(f"🟢 選択されたカテゴリ: {selected_category}")
 
     st.subheader("🏆 カテゴリ × 商品 × バリエーション別売上ランキング")
+
+    # ✅ カテゴリでフィルタリング（UI側で管理）
+    if selected_category != "すべて":
+        ranking = ranking[ranking["カテゴリ"] == selected_category]
 
     if ranking.empty:
         st.info("該当期間の売上データはありませんでした。")
