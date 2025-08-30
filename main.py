@@ -19,6 +19,12 @@ headers = {
     "Authorization": f"Bearer {access_token}",
     "Content-Type": "application/json"
 }
+
+#デバッグ
+st.write("✅ access_token:", access_token)
+st.write("✅ headers:", headers)
+st.write("✅ headers type:", type(headers))
+
 # カテゴリ一覧を取得
 categories = fetch_categories(headers)
 category_list = sorted(set(categories.values()))
@@ -59,6 +65,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
