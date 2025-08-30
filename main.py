@@ -19,7 +19,7 @@ headers = {
     "Authorization": f"Bearer {ACCESS_TOKEN}",
     "Content-Type": "application/json"
 }
-st.write("✅ access_token:", ACCESS_TOKEN)
+st.write("✅ access_token:", access_token)
 st.write("✅ headers:", headers)
 
 # ✅ 任意の日付範囲を指定（同日でもOK）
@@ -61,6 +61,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
