@@ -16,7 +16,7 @@ from services.square_api import fetch_categories
 # 🔐 認証情報を secrets から取得
 access_token = st.secrets["api"]["access_token"]
 headers = {
-    "Authorization": f"Bearer {ACCESS_TOKEN}",
+    "Authorization": f"Bearer {access_token}",
     "Content-Type": "application/json"
 }
 st.write("✅ access_token:", access_token)
@@ -61,6 +61,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
