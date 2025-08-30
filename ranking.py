@@ -2,8 +2,8 @@ import requests
 from datetime import datetime, timezone, timedelta
 import pandas as pd
 
-# 🔐 認証情報
-ACCESS_TOKEN = "EAAAl3xgIoszu7fYksjBsRis_Yfq5yWotSDBpK3s_taFF3T0FjyYTb-tFNAcqVW6"
+# 🔐 認証情報を secrets から取得
+ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
 headers = {
     "Authorization": f"Bearer {ACCESS_TOKEN}",
     "Content-Type": "application/json"
@@ -155,4 +155,5 @@ print("🏆 カテゴリ × 商品 × バリエーション別売上ランキン
 print(ranking)
 
 # 📁 Excel保存（必要に応じて）
+
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
