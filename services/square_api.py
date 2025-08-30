@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 from ctg_dic import category_map  # ← 辞書をインポート
-
+from services.ctg_dic import categorize  # ← 関数をインポート
 
 # 商品情報を取得して辞書からカテゴリ化
 def fetch_item_variation_map(headers):
@@ -20,8 +20,8 @@ def fetch_item_variation_map(headers):
                 item_id = obj["id"]
                 item_name = obj["item_data"]["name"]
 
-                # ✅ 商品名ベースでカテゴリを辞書から取得
-                category_name = category_map.get(item_name, "未分類")
+                # ✅ 商品名ベースでカテゴリを分類
+                category_name = categorize(item_name)
 
                 item_map[item_id] = {
                     "name": item_name,
@@ -45,8 +45,6 @@ def fetch_item_variation_map(headers):
             break
 
     return item_map, variation_map
-
-
 
 # 💰 売上データ取得
 def fetch_sales(headers, begin_time, end_time, item_map, variation_map):
