@@ -1,3 +1,5 @@
+import requests
+
 # 📦 カテゴリ一覧取得
 def fetch_categories(headers):
     url = "https://connect.squareup.com/v2/catalog/list"
