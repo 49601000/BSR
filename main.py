@@ -25,9 +25,6 @@ headers = {
     "Content-Type": "application/json"
 }
 
-# カテゴリ一覧を取得
-category_list = sorted(set(categories.values()))
-
 # ✅ 任意の日付範囲を指定（同日でもOK）
 start_date, end_date = date_range_selector()
 
@@ -36,7 +33,6 @@ if start_date and end_date:
     begin_time, end_time = convert_to_utc_range(start_date, end_date)
     st.write(f"🔁 UTC範囲: {begin_time} ～ {end_time}")
     
-
 # データ取得
 item_map, variation_map = fetch_item_variation_map(headers)
 df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
@@ -65,6 +61,7 @@ show_results(ranking, category_list)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
