@@ -42,5 +42,6 @@ def normalize(name: str) -> str:
 # 分類関数（未分類は "未分類" と返す）
 def categorize(name: str) -> str:
     key = normalize(name)
-    return CATEGORY_MAP.get(key, "未分類")
+    return category_map.get(key, "未分類")
+
 
