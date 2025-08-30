@@ -1,6 +1,8 @@
 import requests
-from datetime import datetime, timezone, timedelta
 import pandas as pd
+import streamlit as st
+from ui.date_selector import date_range_selector
+from utils.timezone import convert_to_utc_range
 
 # 🔐 認証情報を secrets から取得
 ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
@@ -10,16 +12,13 @@ headers = {
 }
 
 # ✅ 任意の日付範囲を指定（同日でもOK）
-date_range = "2025-08-15～2025-08-22"
+start_date, end_date = date_range_selector()
 
 # ✅ 日付設定（JST → UTC変換）
-JST = timezone(timedelta(hours=9))
-start_str, end_str = date_range.split("～")
-begin_dt = datetime.strptime(start_str, "%Y-%m-%d").replace(hour=0, minute=0, second=0, tzinfo=JST)
-end_dt = datetime.strptime(end_str, "%Y-%m-%d").replace(hour=23, minute=59, second=59, tzinfo=JST)
-begin_time = begin_dt.astimezone(timezone.utc).isoformat()
-end_time = end_dt.astimezone(timezone.utc).isoformat()
-
+if start_date and end_date:
+    begin_time, end_time = convert_to_utc_range(start_date, end_date)
+    st.write(f"🔁 UTC範囲: {begin_time} ～ {end_time}")
+    
 
 # 📦 カテゴリ一覧取得
 def fetch_categories():
@@ -157,3 +156,4 @@ print(ranking)
 # 📁 Excel保存（必要に応じて）
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
