@@ -52,7 +52,7 @@ if selected_category != "すべて":
     ranking = ranking[ranking["カテゴリ"] == selected_category]
 
 # 表示
-show_results(ranking)
+show_results(ranking, category_list)
 
 # Excel保存（必要なら）
 # csv_data = ranking.to_csv(index=False, encoding="utf-8-sig")
@@ -61,6 +61,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
