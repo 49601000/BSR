@@ -9,7 +9,7 @@ def show_results(ranking: pd.DataFrame, category_list: list):
     selected_category = st.selectbox("カテゴリ", ["すべて"] + category_list)
     st.write(f"🟢 選択されたカテゴリ: {selected_category}")
 
-    st.subheader("🏆 カテゴリ × 商品 × バリエーション別売上ランキング")
+    st.subheader("🏆 カテゴリ別売上ランキング")
 
     # ✅ カテゴリでフィルタリング（UI側で管理）
     if selected_category != "すべて":
