@@ -44,7 +44,7 @@ selected_category = st.selectbox("カテゴリを選択", category_list)
 
 # 📊 ランキング生成（選択されたカテゴリでデータをフィルタ）
 filtered_df = df[df["カテゴリ"] == selected_category]
-st.dataframe(filtered_df)
+#st.dataframe(filtered_df) #ローデータの表示
 ranking = generate_ranking(filtered_df)
 
 # フィルタリング（main.pyで処理）
@@ -61,6 +61,7 @@ show_results(ranking, category_list)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
