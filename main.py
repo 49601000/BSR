@@ -19,8 +19,9 @@ headers = {
     "Authorization": f"Bearer {access_token}",
     "Content-Type": "application/json"
 }
-st.write("✅ access_token:", access_token)
-st.write("✅ headers:", headers)
+# カテゴリ一覧を取得
+categories = fetch_categories(headers)
+category_list = sorted(set(categories.values()))
 
 # ✅ 任意の日付範囲を指定（同日でもOK）
 start_date, end_date = date_range_selector()
@@ -36,9 +37,6 @@ categories = fetch_categories(headers)
 item_map, variation_map = fetch_item_variation_map(headers, categories)
 df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
 
-# カテゴリ一覧を取得
-categories = fetch_categories(headers)
-category_list = sorted(set(categories.values()))
 
 # UIでカテゴリ選択
 selected_category = category_selector(category_list)
@@ -61,6 +59,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
