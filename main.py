@@ -10,6 +10,7 @@ from ui.date_selector import date_range_selector
 from ui.result_display import show_results
 from ui.result_display import show_results
 from ui.category_ui import category_selector
+from services.ctg_dic import category_map
 from services.square_api import (
     fetch_item_variation_map,
     fetch_sales,
@@ -37,16 +38,17 @@ if start_date and end_date:
     
 
 # データ取得
-categories = fetch_categories(headers)
-item_map, variation_map = fetch_item_variation_map(headers, categories)
+item_map, variation_map = fetch_item_variation_map(headers)
 df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
 
-# UIでカテゴリ選択
-category_list = sorted(set(df["カテゴリ"]))
-selected_category = category_selector(category_list)
+# ✅ カテゴリ一覧を取得（None除外済み）
+category_list = sorted({v for v in category_map.values() if v})
+# ✅ Streamlit UIで選択肢として表示
+selected_category = st.selectbox("カテゴリを選択", category_list)
 
-# 📊 ランキング生成（選択されたカテゴリで絞り込み）
+# 📊 ランキング生成（選択されたカテゴリでデータをフィルタ）
 filtered_df = df[df["カテゴリ"] == selected_category]
+st.dataframe(filtered_df)
 ranking = generate_ranking(filtered_df)
 
 # フィルタリング（main.pyで処理）
@@ -63,6 +65,7 @@ show_results(ranking, category_list)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
