@@ -1,5 +1,5 @@
 # 📦 カテゴリ一覧取得
-def fetch_categories():
+def fetch_categories(headers):
     url = "https://connect.squareup.com/v2/catalog/list"
     params = {"types": "CATEGORY"}
     categories = {}
