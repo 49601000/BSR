@@ -37,13 +37,15 @@ if start_date and end_date:
 # データ取得
 categories = fetch_categories(headers)
 item_map, variation_map = fetch_item_variation_map(headers, categories)
+df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
 
 # UIでカテゴリ選択
+category_list = sorted(set(df["カテゴリ"]))
 selected_category = category_selector(category_list)
 
-# 売上データ取得＆ランキング生成
-df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
-ranking = generate_ranking(df)
+# 📊 ランキング生成（選択されたカテゴリで絞り込み）
+filtered_df = df[df["カテゴリ"] == selected_category]
+ranking = generate_ranking(filtered_df)
 
 # フィルタリング（main.pyで処理）
 if selected_category != "すべて":
@@ -59,6 +61,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
