@@ -1,4 +1,5 @@
 import requests
+import pandas as pd
 
 # 📦 カテゴリ一覧取得
 def fetch_categories(headers):
