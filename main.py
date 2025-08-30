@@ -22,7 +22,6 @@ headers = {
 }
 
 # カテゴリ一覧を取得
-categories = fetch_categories(headers)
 category_list = sorted(set(categories.values()))
 
 # ✅ 任意の日付範囲を指定（同日でもOK）
@@ -61,6 +60,7 @@ show_results(ranking, category_list)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
