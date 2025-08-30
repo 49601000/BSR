@@ -37,8 +37,6 @@ if start_date and end_date:
 # データ取得
 categories = fetch_categories(headers)
 item_map, variation_map = fetch_item_variation_map(headers, categories)
-df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
-
 
 # UIでカテゴリ選択
 selected_category = category_selector(category_list)
@@ -61,6 +59,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
