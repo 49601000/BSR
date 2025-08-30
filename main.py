@@ -4,6 +4,8 @@ import streamlit as st
 from ui.date_selector import date_range_selector
 from utils.timezone import convert_to_utc_range
 from ui.result_display import show_results
+from ui.display import show_results
+from ui.category_ui import category_selector
 
 # 🔐 認証情報を secrets から取得
 ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
@@ -26,10 +28,22 @@ categories = fetch_categories(headers)
 item_map, variation_map = fetch_item_variation_map(headers, categories)
 df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
 
-# ランキング生成
+# カテゴリ一覧を取得
+categories = fetch_categories(headers)
+category_list = sorted(set(categories.values()))
+
+# UIでカテゴリ選択
+selected_category = category_selector(category_list)
+
+# 売上データ取得＆ランキング生成
+df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
 ranking = generate_ranking(df)
 
-# 表示（Streamlitなど）
+# フィルタリング（main.pyで処理）
+if selected_category != "すべて":
+    ranking = ranking[ranking["カテゴリ"] == selected_category]
+
+# 表示
 show_results(ranking)
 
 # Excel保存（必要なら）
@@ -39,5 +53,6 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
