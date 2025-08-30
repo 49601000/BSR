@@ -8,7 +8,7 @@ import streamlit as st
 from utils.timezone import convert_to_utc_range
 from ui.date_selector import date_range_selector
 from ui.result_display import show_results
-from ui.display import show_results
+from ui.result_display import show_results
 from ui.category_ui import category_selector
 
 # 🔐 認証情報を secrets から取得
@@ -57,6 +57,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
