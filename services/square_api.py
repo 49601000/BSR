@@ -25,7 +25,7 @@ def fetch_categories(headers):
     return categories
 
 # 🧩 商品・バリエーション情報取得
-def fetch_item_variation_map(categories):
+def fetch_item_variation_map(headers, categories):
     url = "https://connect.squareup.com/v2/catalog/list"
     params = {"types": "ITEM,ITEM_VARIATION"}
     item_map = {}
