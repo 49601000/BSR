@@ -11,7 +11,7 @@ from ui.result_display import show_results
 from ui.result_display import show_results
 from ui.category_ui import category_selector
 from services.square_api import (
-    fetch_categories, fetch_item_variation_map,fetch_sales)
+    fetch_categories, fetch_item_variation_map, fetch_sales)
 
 
 # 🔐 認証情報を secrets から取得
@@ -66,6 +66,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
