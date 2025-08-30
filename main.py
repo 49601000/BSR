@@ -39,19 +39,11 @@ df = fetch_sales(headers, begin_time, end_time, item_map, variation_map)
 
 # ✅ カテゴリ一覧を取得（None除外済み）
 category_list = sorted({v for v in category_map.values() if v})
-# ✅ Streamlit UIで選択肢として表示
-selected_category = st.selectbox("カテゴリを選択", category_list)
 
-# 📊 ランキング生成（選択されたカテゴリでデータをフィルタ）
-filtered_df = df[df["カテゴリ"] == selected_category]
-#st.dataframe(filtered_df) #ローデータの表示
-ranking = generate_ranking(filtered_df)
+# 📊 ランキング生成（全体データで一旦生成）
+ranking = generate_ranking(df)
 
-# フィルタリング（main.pyで処理）
-if selected_category != "すべて":
-    ranking = ranking[ranking["カテゴリ"] == selected_category]
-
-# 表示
+# 表示（カテゴリ選択とフィルタは show_results 側で処理）
 show_results(ranking, category_list)
 
 # Excel保存（必要なら）
@@ -61,6 +53,7 @@ show_results(ranking, category_list)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
