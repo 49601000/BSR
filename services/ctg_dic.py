@@ -1,5 +1,5 @@
 # 商品名 → カテゴリ名 の対応辞書
-CATEGORY_MAP = {
+category_map = {
     "ブレンドコーヒー": "コーヒー",
     "ラテ": "コーヒー",
     "ブレンドコーヒー(テイクアウト)": "コーヒー",
@@ -43,3 +43,4 @@ def normalize(name: str) -> str:
 def categorize(name: str) -> str:
     key = normalize(name)
     return CATEGORY_MAP.get(key, "未分類")
+
