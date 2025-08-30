@@ -1,8 +1,14 @@
+# ui/result_display.py
+
 import streamlit as st
 import pandas as pd
 from datetime import date
 
-def show_results(ranking: pd.DataFrame):
+def show_results(ranking: pd.DataFrame, category_list: list):
+    st.subheader("📂 カテゴリを選択してください")
+    selected_category = st.selectbox("カテゴリ", category_list)
+    st.write(f"🟢 選択されたカテゴリ: {selected_category}")
+
     st.subheader("🏆 カテゴリ × 商品 × バリエーション別売上ランキング")
 
     if ranking.empty:
