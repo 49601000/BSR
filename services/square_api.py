@@ -1,32 +1,10 @@
 import requests
 import pandas as pd
+from ctg_dic import category_dict  # ← 辞書をインポート
 
-# 📦 カテゴリ一覧取得
-def fetch_categories(headers):
-    url = "https://connect.squareup.com/v2/catalog/list"
-    params = {"types": "CATEGORY"}
-    categories = {}
 
-    while True:
-        response = requests.get(url, headers=headers, params=params)
-        data = response.json()
-
-        for obj in data.get("objects", []):
-            if obj["type"] == "CATEGORY":
-                cat_id = obj["id"]
-                cat_name = obj["category_data"]["name"]
-                categories[cat_id] = cat_name
-
-        cursor = data.get("cursor")
-        if cursor:
-            params["cursor"] = cursor
-        else:
-            break
-
-    return categories
-
-# 🧩 商品・バリエーション情報取得
-def fetch_item_variation_map(headers, categories):
+# 商品情報を取得して辞書からカテゴリ化
+def fetch_item_variation_map(headers):
     url = "https://connect.squareup.com/v2/catalog/list"
     params = {"types": "ITEM,ITEM_VARIATION"}
     item_map = {}
@@ -41,8 +19,10 @@ def fetch_item_variation_map(headers, categories):
             if obj["type"] == "ITEM":
                 item_id = obj["id"]
                 item_name = obj["item_data"]["name"]
-                category_id = obj["item_data"].get("category_id", "")
-                category_name = categories.get(category_id, "未分類")
+
+                # ✅ 商品名ベースでカテゴリを辞書から取得
+                category_name = category_dict.get(item_name, "未分類")
+
                 item_map[item_id] = {
                     "name": item_name,
                     "category": category_name
@@ -52,6 +32,7 @@ def fetch_item_variation_map(headers, categories):
                 var_id = obj["id"]
                 var_name = obj["item_variation_data"]["name"]
                 item_id = obj["item_variation_data"]["item_id"]
+
                 variation_map[var_id] = {
                     "variation_name": var_name,
                     "item_id": item_id
@@ -64,6 +45,7 @@ def fetch_item_variation_map(headers, categories):
             break
 
     return item_map, variation_map
+
 
 
 # 💰 売上データ取得
