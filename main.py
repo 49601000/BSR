@@ -20,11 +20,19 @@ headers = {
     "Content-Type": "application/json"
 }
 
-#デバッグ
-st.write("✅ access_token:", access_token)
-st.write("✅ headers:", headers)
-st.write("✅ headers type:", type(headers))
+#デバッグ*********************
+try:
+    response = requests.get(url, headers=headers, params=params)
+    response.raise_for_status()
+    data = response.json()
+except requests.exceptions.RequestException as e:
+    st.error(f"🛑 APIリクエストエラー: {e}")
+    return {}
+except Exception as e:
+    st.error(f"🛑 予期せぬエラー: {e}")
+    return {}
 
+#*********************
 # カテゴリ一覧を取得
 categories = fetch_categories(headers)
 category_list = sorted(set(categories.values()))
@@ -65,6 +73,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
