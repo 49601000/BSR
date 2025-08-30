@@ -21,7 +21,7 @@ def fetch_item_variation_map(headers):
                 item_name = obj["item_data"]["name"]
 
                 # ✅ 商品名ベースでカテゴリを辞書から取得
-                category_name = category_dict.get(item_name, "未分類")
+                category_name = category_map.get(item_name, "未分類")
 
                 item_map[item_id] = {
                     "name": item_name,
