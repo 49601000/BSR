@@ -10,6 +10,8 @@ from ui.date_selector import date_range_selector
 from ui.result_display import show_results
 from ui.result_display import show_results
 from ui.category_ui import category_selector
+from services.square_api import fetch_categories
+
 
 # 🔐 認証情報を secrets から取得
 ACCESS_TOKEN = st.secrets["ACCESS_TOKEN"]
@@ -57,6 +59,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
