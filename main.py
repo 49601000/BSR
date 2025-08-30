@@ -21,16 +21,9 @@ headers = {
 }
 
 #デバッグ*********************
-try:
-    response = requests.get(url, headers=headers, params=params)
-    response.raise_for_status()
-    data = response.json()
-except requests.exceptions.RequestException as e:
-    st.error(f"🛑 APIリクエストエラー: {e}")
-    return {}
-except Exception as e:
-    st.error(f"🛑 予期せぬエラー: {e}")
-    return {}
+st.write("✅ headers:", headers)
+st.write("✅ headers type:", type(headers))
+
 #*********************
 # カテゴリ一覧を取得
 categories = fetch_categories(headers)
@@ -72,6 +65,7 @@ show_results(ranking)
 
 
 # ranking.to_excel(f"ranking_{target_date}.xlsx", index=False)
+
 
 
 
