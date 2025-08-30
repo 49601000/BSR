@@ -1,6 +1,6 @@
 import requests
 import pandas as pd
-from ctg_dic import category_dict  # ← 辞書をインポート
+from ctg_dic import category_map  # ← 辞書をインポート
 
 
 # 商品情報を取得して辞書からカテゴリ化
